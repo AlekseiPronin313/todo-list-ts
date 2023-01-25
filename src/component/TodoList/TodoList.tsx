@@ -2,22 +2,10 @@ import React from 'react';
 import Style from './TodoList.module.scss'
 import TodoItem from "./TodoItem/TodoItem";
 import InputField from "../InputField/InputField";
+import {useTodo} from "../../utils";
 
-interface TodoListProps {
-    todos: Todo[]
-    todoIdForEdit: Todo['id'] | null
-    changeTodo: ({name, description}: Omit<Todo, 'checked' | 'id'>) => void
-    checkTodo: (id: Todo['id']) => void
-    deleteTodo: (id: Todo['id']) => void
-    selectTodoIdForEdit: (id: Todo['id']) => void
-}
-
-const TodoList: React.FC<TodoListProps> = ({ todos,
-                                               checkTodo,
-                                               deleteTodo,
-                                               selectTodoIdForEdit,
-                                               todoIdForEdit,
-                                               changeTodo }) => {
+const TodoList: React.FC = () => {
+    const {todos, todoIdForEdit, checkTodo, deleteTodo, selectTodoIdForEdit} = useTodo()
     return (
         <div className={Style.todoList}>
             {todos.map(todo => {
@@ -26,7 +14,6 @@ const TodoList: React.FC<TodoListProps> = ({ todos,
                         <InputField
                         key={todo.id}
                         mode={'edit'}
-                        changeTodo={changeTodo}
                         editTodo={{name: todo.name, description: todo.description}}
                         />
                     )

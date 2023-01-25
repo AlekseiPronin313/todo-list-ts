@@ -1,23 +1,23 @@
 import React, {useState} from "react";
 import Style from "./InputField.module.scss";
 import Button from "../Button/Button";
+import {useTodo} from "../../utils";
 
 const DEFAULT_TODO = { name: '', description: '' };
 
 interface AddTodoPanelProps {
     mode: 'add'
-    addTodo: ({name, description}: Omit<Todo, 'checked' | 'id'>) => void
 }
 
 interface EditTodoPanelProps {
     mode: 'edit'
     editTodo: Omit<Todo, 'checked' | 'id'>
-    changeTodo: ({name, description}: Omit<Todo, 'checked' | 'id'>) => void
 }
 
 type InputFieldProps = AddTodoPanelProps | EditTodoPanelProps
 
 const InputField: React.FC<InputFieldProps> = (props) => {
+    const {changeTodo, addTodo} = useTodo()
     const isEdit = props.mode === 'edit'
     const [todo, setTodo] = useState(isEdit ? props.editTodo : DEFAULT_TODO)
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,9 +28,9 @@ const InputField: React.FC<InputFieldProps> = (props) => {
     const onClickButton = () => {
         const todoItem = {name: todo.name, description: todo.description}
         if (isEdit) {
-            return props.changeTodo(todoItem)
+            return changeTodo(todoItem)
         }
-        props.addTodo(todoItem)
+        addTodo(todoItem)
         setTodo(DEFAULT_TODO)
     }
 
