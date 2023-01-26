@@ -7,7 +7,6 @@ import TodoList from "../TodoList/TodoList";
 
 function App() {
   return (
-      <TodoProvider>
       <div className={Style.app_container}>
           <div className={Style.container}>
               <Header />
@@ -15,7 +14,6 @@ function App() {
               <TodoList />
           </div>
       </div>
-    </TodoProvider>
   );
 }
 
