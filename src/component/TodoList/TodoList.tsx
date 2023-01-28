@@ -7,7 +7,7 @@ import {useAppSelector} from "../../hooks/hook";
 
 const TodoList: React.FC = () => {
     const todos = useAppSelector(state => state.todos.list)
-    const {todoIdForEdit, checkTodo, selectTodoIdForEdit} = useTodo()
+    const {todoIdForEdit, selectTodoIdForEdit} = useTodo()
     return (
         <div className={Style.todoList}>
             {todos.map(todo => {
@@ -22,7 +22,6 @@ const TodoList: React.FC = () => {
 
                 return (
                     <TodoItem key={todo.id} todo={todo}
-                              checkTodo={checkTodo}
                               selectTodoIdForEdit={selectTodoIdForEdit}
                     />
                 )

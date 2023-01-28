@@ -41,9 +41,17 @@ const todoSlise = createSlice({
         },
         deleteTodo(state, action: PayloadAction<number>) {
            state.list = state.list.filter(todo => todo.id !== action.payload)
+        },
+        checkTodo(state, action: PayloadAction<number>) {
+            state.list = state.list.map((todo) => {
+                if (todo.id === action.payload) {
+                    return { ...todo, checked: !todo.checked }
+                }
+                return todo
+            })
         }
     }
 })
 
-export const {addTodo, deleteTodo} = todoSlise.actions
+export const {addTodo, deleteTodo, checkTodo} = todoSlise.actions
 export default todoSlise.reducer
