@@ -3,9 +3,11 @@ import Style from './TodoList.module.scss'
 import TodoItem from "./TodoItem/TodoItem";
 import InputField from "../InputField/InputField";
 import {useTodo} from "../../utils";
+import {useAppSelector} from "../../hooks/hook";
 
 const TodoList: React.FC = () => {
-    const {todos, todoIdForEdit, checkTodo, deleteTodo, selectTodoIdForEdit} = useTodo()
+    const todos = useAppSelector(state => state.todos.list)
+    const {todoIdForEdit, checkTodo, selectTodoIdForEdit} = useTodo()
     return (
         <div className={Style.todoList}>
             {todos.map(todo => {
@@ -21,7 +23,6 @@ const TodoList: React.FC = () => {
                 return (
                     <TodoItem key={todo.id} todo={todo}
                               checkTodo={checkTodo}
-                              deleteTodo={deleteTodo}
                               selectTodoIdForEdit={selectTodoIdForEdit}
                     />
                 )

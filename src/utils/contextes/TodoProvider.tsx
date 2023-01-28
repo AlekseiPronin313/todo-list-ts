@@ -39,9 +39,6 @@ export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
             }))
     }
 
-    const deleteTodo = (id: Todo['id']) => {
-        setTodos(todos.filter(todo => todo.id !== id))
-    }
 
     const changeTodo = ({name, description}: Omit<Todo, 'checked' | 'id'>) => {
         setTodos(
@@ -57,7 +54,6 @@ export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
     const value = React.useMemo(() => ({
         todoIdForEdit,
             todos,
-            deleteTodo,
             changeTodo,
             addTodo,
             selectTodoIdForEdit,
@@ -65,7 +61,6 @@ export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
     }), [
         todoIdForEdit,
         todos,
-        deleteTodo,
         changeTodo,
         addTodo,
         selectTodoIdForEdit,

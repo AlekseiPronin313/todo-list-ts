@@ -1,9 +1,9 @@
 import React from 'react';
 import Style from './Header.module.scss';
-import {useTodo} from "../../utils";
+import {useAppSelector} from "../../hooks/hook";
 
 const Header: React.FC = () => {
-    const {todos} = useTodo()
+    const todos = useAppSelector(state => state.todos.list)
     return (
     <div className={Style.header_container}>
         <h1 className={Style.header_title}>

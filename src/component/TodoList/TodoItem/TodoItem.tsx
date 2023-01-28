@@ -1,15 +1,18 @@
 import React from "react";
 import Style from "./TodoItem.module.scss";
 import Button from "../../Button/Button";
+import {useAppDispatch} from "../../../hooks/hook";
+import {deleteTodo} from "../../../store/todoSlise";
 
 interface TodoItemProps {
     todo: Todo
     checkTodo: (id: Todo['id']) => void
-    deleteTodo: (id: Todo['id']) => void
     selectTodoIdForEdit: (id: Todo['id']) => void
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo,  checkTodo,  deleteTodo, selectTodoIdForEdit }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, checkTodo, selectTodoIdForEdit }) => {
+    const dispatch = useAppDispatch()
+
     return (
         <div className={Style.todo_item_container}>
             <div>
@@ -30,7 +33,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo,  checkTodo,  deleteTodo, sele
                 <Button color='orange' onClick={() => selectTodoIdForEdit(todo.id)}>
                     EDIT
                 </Button>
-                <Button color='red' onClick={() =>  deleteTodo(todo.id)}>
+                <Button color='red' onClick={() => dispatch(deleteTodo(todo.id))}>
                     DELETE
                 </Button>
             </div>
