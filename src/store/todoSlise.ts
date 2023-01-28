@@ -31,11 +31,11 @@ const todoSlise = createSlice({
     name: 'todo',
     initialState,
     reducers: {
-        addTodo(state, action: PayloadAction<string>) {
+        addTodo(state, action: PayloadAction< Omit<Todo, 'checked' | 'id'>>) {
             state.list.push({
                 id: state.list[state.list.length - 1].id + 1,
-                description: action.payload,
-                name: action.payload,
+                description: action.payload.description,
+                name: action.payload.name,
                 checked: false
             })
         },

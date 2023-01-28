@@ -25,21 +25,6 @@ export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
         setTodoIdForEdit(id)
     }
 
-    const addTodo = ({name, description}: Omit<Todo, 'checked' | 'id'>) => {
-        setTodos([...todos, {id: todos[todos.length - 1].id + 1, description, name, checked: false}])
-    }
-
-    const checkTodo = (id: Todo['id']) => {
-        setTodos(
-            todos.map((todo) => {
-                if (todo.id === id) {
-                    return { ...todo, checked: !todo.checked }
-                }
-                return todo
-            }))
-    }
-
-
     const changeTodo = ({name, description}: Omit<Todo, 'checked' | 'id'>) => {
         setTodos(
             todos.map((todo) => {
@@ -55,16 +40,12 @@ export const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
         todoIdForEdit,
             todos,
             changeTodo,
-            addTodo,
             selectTodoIdForEdit,
-            checkTodo,
     }), [
         todoIdForEdit,
         todos,
         changeTodo,
-        addTodo,
-        selectTodoIdForEdit,
-        checkTodo,])
+        selectTodoIdForEdit,])
 
     return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>
 }
