@@ -43,12 +43,10 @@ const todoSlise = createSlice({
            state.list = state.list.filter(todo => todo.id !== action.payload)
         },
         checkTodo(state, action: PayloadAction<number>) {
-            state.list = state.list.map((todo) => {
-                if (todo.id === action.payload) {
-                    return { ...todo, checked: !todo.checked }
-                }
-                return todo
-            })
+            const toggledTodo = state.list.find((todo) => todo.id === action.payload)
+            if (toggledTodo) {
+                toggledTodo.checked = !toggledTodo.checked
+            }
         }
     }
 })
