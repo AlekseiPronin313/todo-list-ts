@@ -5,6 +5,18 @@
   background-color: white;
 }
 
+.button.disabled {
+  border: 1px solid rgba(234, 223, 223, 0.29);
+  color: darkgray;
+  cursor: default;
+}
+
+.button.disabled:hover {
+  border: 1px solid rgba(234, 223, 223, 0.29);
+  color: darkgray;
+  background-color: rgb(255, 255, 255);
+}
+
 .button_red {
   border: 1px solid rgba(210, 25, 25, 0.5);
   color: #d21919;

@@ -53,10 +53,10 @@ const InputField: React.FC<InputFieldProps> = (props) => {
             </div>
             <div className={Style.button_container}>
                 {!isEdit && (
-                    <Button color={'blue'} onClick={onClickButton}>ADD</Button>
+                    <Button color={'blue'} disabled={todo.name.length < 2 || todo.description.length < 2} onClick={onClickButton}>ADD</Button>
                 )}
                 {isEdit && (
-                    <Button color={'orange'} onClick={onClickButton}>EDIT</Button>
+                    <Button color={'orange'} disabled={todo.name.length < 2 || todo.description.length < 2} onClick={onClickButton}>EDIT</Button>
                 )}
             </div>
         </div>

@@ -5,10 +5,10 @@ interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
     color: 'orange' | 'blue' | 'red'
 }
 
-const Button: React.FC<ButtonProps> = ({children, color, onClick}) => {
-    const className = `${Style.button} ${Style[`button_${color}`]}`
+const Button: React.FC<ButtonProps> = ({children, color, onClick, disabled}) => {
+    const className = `${disabled? Style.button + ' ' + Style.disabled : Style.button} ${Style[`button_${color}`]}`
     return (
-        <button className={className} onClick={onClick}>
+        <button className={className} onClick={onClick} disabled={disabled}>
             {children}
         </button>
     );
