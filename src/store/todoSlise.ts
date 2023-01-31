@@ -12,44 +12,54 @@ const DEFAULT_TODO_LIST = [
     }
 ];
 
-type Todo = {
-    id: number,
-    name: string,
-    description: string,
-    checked: boolean,
-}
-
 type TodosState = {
     list: Todo[]
+    todoIdForEdit: Todo['id'] | null
 }
 
 const initialState: TodosState = {
-    list: DEFAULT_TODO_LIST
+    list: DEFAULT_TODO_LIST,
+    todoIdForEdit: null
 }
 
 const todoSlise = createSlice({
-    name: 'todo',
+    name: 'todos',
     initialState,
     reducers: {
         addTodo(state, action: PayloadAction< Omit<Todo, 'checked' | 'id'>>) {
+            const {name, description} = action.payload
             state.list.push({
                 id: state.list[state.list.length - 1].id + 1,
-                description: action.payload.description,
-                name: action.payload.name,
+                description,
+                name,
                 checked: false
             })
         },
-        deleteTodo(state, action: PayloadAction<number>) {
+        deleteTodo(state, action: PayloadAction<Todo['id']>) {
            state.list = state.list.filter(todo => todo.id !== action.payload)
         },
-        checkTodo(state, action: PayloadAction<number>) {
+        checkTodo(state, action: PayloadAction<Todo['id']>) {
             const toggledTodo = state.list.find((todo) => todo.id === action.payload)
             if (toggledTodo) {
                 toggledTodo.checked = !toggledTodo.checked
             }
+        },
+        selectTodoIdForEdit(state, action: PayloadAction<Todo['id']>) {
+            state.todoIdForEdit = action.payload
+        },
+        changeTodo(state, action: PayloadAction<Omit<Todo, 'checked' | 'id'>>) {
+            const {name, description} = action.payload
+            const newList = state.list.map((todo) => {
+                if (todo.id === state.todoIdForEdit) {
+                    return  { ...todo, name, description }
+                }
+                return todo
+            })
+            state.list = newList
+            state.todoIdForEdit = null
         }
     }
 })
 
-export const {addTodo, deleteTodo, checkTodo} = todoSlise.actions
+export const {addTodo, deleteTodo, checkTodo, selectTodoIdForEdit, changeTodo} = todoSlise.actions
 export default todoSlise.reducer

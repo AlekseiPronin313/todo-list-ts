@@ -1,5 +1,4 @@
 import React from 'react';
-import {TodoProvider} from "../../utils";
 import Style from './App.module.scss'
 import Header from "../Header/Header";
 import InputField from "../InputField/InputField";

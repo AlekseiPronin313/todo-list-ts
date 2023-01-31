@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import Style from "./InputField.module.scss";
 import Button from "../Button/Button";
-import {useTodo} from "../../utils";
 import {useAppDispatch} from "../../hooks/hook";
-import {addTodo} from "../../store/todoSlise";
+import {addTodo, changeTodo} from "../../store/todoSlise";
 
 const DEFAULT_TODO = { name: '', description: '' };
 
@@ -20,7 +19,6 @@ type InputFieldProps = AddTodoPanelProps | EditTodoPanelProps
 
 const InputField: React.FC<InputFieldProps> = (props) => {
     const dispatch = useAppDispatch()
-    const {changeTodo} = useTodo()
     const isEdit = props.mode === 'edit'
     const [todo, setTodo] = useState(isEdit ? props.editTodo : DEFAULT_TODO)
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = (props) => {
     const onClickButton = () => {
         const todoItem = {name: todo.name, description: todo.description}
         if (isEdit) {
-            return changeTodo(todoItem)
+            return dispatch(changeTodo(todoItem))
         }
         dispatch(addTodo(todoItem))
         setTodo(DEFAULT_TODO)
