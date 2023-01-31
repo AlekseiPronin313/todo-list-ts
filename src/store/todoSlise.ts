@@ -49,13 +49,11 @@ const todoSlise = createSlice({
         },
         changeTodo(state, action: PayloadAction<Omit<Todo, 'checked' | 'id'>>) {
             const {name, description} = action.payload
-            const newList = state.list.map((todo) => {
-                if (todo.id === state.todoIdForEdit) {
-                    return  { ...todo, name, description }
-                }
-                return todo
-            })
-            state.list = newList
+            const newList = state.list.find((todo) => todo.id === state.todoIdForEdit)
+            if (newList) {
+                newList.name = name
+                newList.description = description
+            }
             state.todoIdForEdit = null
         }
     }
