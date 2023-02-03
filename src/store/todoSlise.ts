@@ -29,7 +29,7 @@ const todoSlise = createSlice({
         addTodo(state, action: PayloadAction< Omit<Todo, 'checked' | 'id'>>) {
             const {name, description} = action.payload
             state.list.push({
-                id: state.list[state.list.length - 1].id + 1,
+                id: state.list.length === 0 ? 1 : state.list[state.list.length - 1].id + 1,
                 description,
                 name,
                 checked: false
